@@ -1,12 +1,46 @@
 import'package:flutter/material.dart';
+import 'package:personal_money_management_app/screens/category/expense_category_list.dart';
+import 'package:personal_money_management_app/screens/category/income_catogory_list.dart';
 
-class ScreenCatogory extends StatelessWidget {
+class ScreenCatogory extends StatefulWidget {
   const ScreenCatogory({super.key});
 
   @override
+  State<ScreenCatogory> createState() => _ScreenCatogoryState();
+}
+
+class _ScreenCatogoryState extends State<ScreenCatogory> with SingleTickerProviderStateMixin{   //tap bar can only be created in statefull widget
+  
+  late TabController _tabController;
+
+  
+  @override
+  void initState(){
+    _tabController = TabController(length: 2, vsync: this);
+  }
+
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(child: Text('ScreenCatogory')),
+    return Column(
+      children:[
+        TabBar(
+          controller: _tabController,
+          labelColor: Colors.black,
+          tabs: const [
+          Tab(text: 'INCOME'),
+          Tab(text: 'EXPENSE'),  
+        ]
+        ),
+        Expanded(
+          child: TabBarView(
+            controller: _tabController,
+            children: const [
+            IncomeCategoryList(),
+            ExpenseCategoryList(),
+          ]
+          
+          ),
+        )
+      ],
     );
   }
 }

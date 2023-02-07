@@ -12,7 +12,8 @@ class MoneyManagerBottomNavigation extends StatelessWidget {
       builder: (BuildContext ctx, int updatedIndex, Widget? _){
         return BottomNavigationBar(
         //to change current index according to selected index notifier
-        selectedItemColor: ,
+        selectedItemColor: Colors.purple,
+        unselectedItemColor: Colors.grey,
         currentIndex: updatedIndex,//bottom navigation selection changes
         onTap: (newIndex){
           ScreenHome.selectedIndexNotifier.value = newIndex; //on taping value changes
