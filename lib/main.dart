@@ -1,7 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:personal_money_management_app/models/category/category_model.dart';
 import 'package:personal_money_management_app/screens/home/screen_home.dart';
 
-void main() {
+Future<void> main() async{
+  WidgetsFlutterBinding.ensureInitialized(); //for checking the connection of plegins with platform channels before sterting the app
+  await Hive.initFlutter();
+
+  if(!Hive.isAdapterRegistered(CategoryTypeAdapter().typeId)){  //if there is no teble then it creates
+    Hive.registerAdapter(CategoryTypeAdapter());
+  }
+
+  if(!Hive.isAdapterRegistered(CategoryModelAdapter().typeId)){
+    Hive.registerAdapter(CategoryModelAdapter());
+  }
   runApp(const MyApp());
 }
 
