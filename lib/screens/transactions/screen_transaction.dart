@@ -1,13 +1,22 @@
 import'package:flutter/material.dart';
+import 'package:personal_money_management_app/db/transactions/transaction_db.dart';
+
+import '../../models/transaction/transaction_model.dart';
 
 class ScreenTransactions extends StatelessWidget {
   const ScreenTransactions({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
+    TransactionDB.instance.refresh();
+    return ValueListenableBuilder(
+      valueListenable: TransactionDB.instance.transactionListNotifier,
+      builder: (BuildContext context, List<Transaction> newList, Widget? _) {
+        ListView.separated(
       padding: const EdgeInsets.all(6),
-      itemBuilder: (ctx, insex){
+      //values
+      itemBuilder: (ctx, index){
+        final _value = newList[index];
         return const Card(
           elevation: 0,
           child:ListTile(
@@ -28,7 +37,9 @@ class ScreenTransactions extends StatelessWidget {
         return const SizedBox(height: 10,);
 
       }, 
-      itemCount: 10
+      itemCount: newList.length,
+    );
+      }
     );
   }
 }
